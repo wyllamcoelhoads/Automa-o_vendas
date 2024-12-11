@@ -371,20 +371,6 @@
     },
     {
       "parameters": {
-        "maxItems": 21
-      },
-      "id": "ad210a3f-e10e-4035-8fd5-e31ddbaae551",
-      "name": "Limitador de Itens",
-      "type": "n8n-nodes-base.limit",
-      "typeVersion": 1,
-      "position": [
-        1120,
-        240
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
         "sendTo": "={{ $('Cliente positivo para ligações').item.json.fields.Email }}",
         "subject": "=🎉 Parabéns! Você foi selecionado para uma conversa exclusiva com nosso corretor.",
         "emailType": "text",
@@ -1328,17 +1314,6 @@
       "main": [
         [
           {
-            "node": "Limitador de Itens",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Limitador de Itens": {
-      "main": [
-        [
-          {
             "node": "Sentiment Analysis",
             "type": "main",
             "index": 0
@@ -1564,7 +1539,7 @@
   },
   "active": false,
   "settings": {},
-  "versionId": "8b5e310e-2242-4579-99a9-68aa0b88218c",
+  "versionId": "2ea4d54d-86e1-47ea-be36-45a515dc66b0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "5ead9ab04b81c3a806db353a9c355e54635846a8c47b7508d8cb4d3c49057d74"
