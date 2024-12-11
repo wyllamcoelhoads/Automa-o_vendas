@@ -1,0 +1,1574 @@
+{
+  "name": "Agente Imobiliário Funcionando heard falta inativo",
+  "nodes": [
+    {
+      "parameters": {
+        "toolDescription": "Relacione as cidades dos cliente com as cidades dos imoveis que temos na base de dados ",
+        "url": "https://6749e696868020296633075a.mockapi.io/api/imoveis/avenda/imoveis"
+      },
+      "id": "4ea575b2-c8d5-4bc6-90d6-573869ce7312",
+      "name": "HTTP Request",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        2300,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "f851c8a0-8b3c-49e2-bd1b-dfb988720303",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        -260
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X6RgTve43oC3qgKB",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://6749e696868020296633075a.mockapi.io/api/imoveis/avenda/imoveis"
+      },
+      "id": "c7295728-270f-4b69-9c4a-d961f5e2273b",
+      "name": "HTTP Request1",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        3320,
+        -500
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "b07f0929-e834-4c79-b590-a3440d2d929c",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        -500
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X6RgTve43oC3qgKB",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "id": "5cad16ac-7021-4d7d-be95-d8895fcabe03",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "f961cb87-eed8-4851-adb5-77ab51d2a3e1",
+      "name": "OpenAI Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        380
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X6RgTve43oC3qgKB",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appt7DoPruRD9Sm1T",
+          "mode": "list",
+          "cachedResultName": "Agente Imobiliário",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblyEesf2r8b3XUEJ",
+          "mode": "list",
+          "cachedResultName": "DadosImobiliarios",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T/tblyEesf2r8b3XUEJ"
+        },
+        "options": {}
+      },
+      "id": "cadeab14-2fe1-43f5-9a2c-00a6d5ffa08e",
+      "name": "Dados da Imobiliária",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        240
+      ],
+      "executeOnce": false,
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "p1dXJCd3h64BgfLP",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://6749e696868020296633075a.mockapi.io/api/imoveis/avenda/clientes",
+        "options": {}
+      },
+      "id": "47ef0d13-61d2-4a57-8606-e72421ea5fcb",
+      "name": "API de Clientes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        520,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appt7DoPruRD9Sm1T",
+          "mode": "list",
+          "cachedResultName": "Agente Imobiliário",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl51LlGHY6fJNqFp",
+          "mode": "list",
+          "cachedResultName": "Clientes",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T/tbl51LlGHY6fJNqFp"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Telefone": "={{ $json.Telefone }}",
+            "Orcamento": "={{ $json.Orcamento }}",
+            "RendaMensal": "={{ $json.RendaMensal }}",
+            "Nome": "={{ $json.Nome }}",
+            "Email": "={{ $json.Email }}",
+            "TipoDeImoveInteresse": "={{ $json.TipoDeImoveInteresse }}",
+            "PrazoMudanca": "={{ $json.PrazoMudanca }}",
+            "Cidade": "={{ $json.Cidade }}",
+            "Tamanho": "={{ $json.Tamanho }}",
+            "Entrada": "={{ $json.Entrada }}",
+            "AnaliseCredito": "={{ $json.AnaliseCredito }}",
+            "NivelInteresse": "={{ $json.NivelInteresse }}"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "TipoDeImoveInteresse",
+              "displayName": "TipoDeImoveInteresse",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "PrazoMudanca",
+              "displayName": "PrazoMudanca",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cidade",
+              "displayName": "Cidade",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tamanho",
+              "displayName": "Tamanho",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Orcamento",
+              "displayName": "Orcamento",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "RendaMensal",
+              "displayName": "RendaMensal",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Entrada",
+              "displayName": "Entrada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AnaliseCredito",
+              "displayName": "AnaliseCredito",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "NivelInteresse",
+              "displayName": "NivelInteresse",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5f421a67-8c91-41d4-9f86-260eb918fb0a",
+      "name": "Grava ou atualizada dados",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        820,
+        240
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "p1dXJCd3h64BgfLP",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "maxItems": 21
+      },
+      "id": "ad210a3f-e10e-4035-8fd5-e31ddbaae551",
+      "name": "Limitador de Itens",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        240
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Cliente positivo para ligações').item.json.fields.Email }}",
+        "subject": "=🎉 Parabéns! Você foi selecionado para uma conversa exclusiva com nosso corretor.",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "id": "892f91fc-2bb4-40f7-b698-a93f65261a44",
+      "name": "Envia Email para cada cliente",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2620,
+        -380
+      ],
+      "webhookId": "ca0deb4d-f9bd-42f3-888c-9b2bf7a9c4a1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8t8eRoZSD1oY5fIh",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appt7DoPruRD9Sm1T",
+          "mode": "list",
+          "cachedResultName": "Agente Imobiliário",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblgTZ1ZzhgDM3qQh",
+          "mode": "list",
+          "cachedResultName": "Contato de aprovados",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T/tblgTZ1ZzhgDM3qQh"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.result.message_id }}",
+            "Name": "={{ $('Cliente positivo para ligações').item.json.fields.Nome }}",
+            "Email": "={{ $('Cliente positivo para ligações').item.json.fields.Email }}",
+            "Telefone": "={{ $('Cliente positivo para ligações').item.json.fields.Telefone }}",
+            "Entrada": "={{ $('Cliente positivo para ligações').item.json.fields.Entrada }}",
+            "NIvelInteresse": "={{ $('Cliente positivo para ligações').item.json.fields.NivelInteresse }}",
+            "Cidade": "={{ $('Cliente positivo para ligações').item.json.fields.Cidade }}",
+            "TipoImovel": "={{ $('Cliente positivo para ligações').item.json.fields.TipoDeImoveInteresse }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Entrada",
+              "displayName": "Entrada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "NIvelInteresse",
+              "displayName": "NIvelInteresse",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Cidade",
+              "displayName": "Cidade",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "TipoImovel",
+              "displayName": "TipoImovel",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8b8199f9-8ca3-4238-9c09-3eb2a8c69606",
+      "name": "Grava dados de contatos Aprovados",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        3980,
+        -560
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "p1dXJCd3h64BgfLP",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appt7DoPruRD9Sm1T",
+          "mode": "list",
+          "cachedResultName": "Agente Imobiliário",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblcY9dW2Jh2zUWuj",
+          "mode": "list",
+          "cachedResultName": "Clientes Neutros",
+          "cachedResultUrl": "https://airtable.com/appt7DoPruRD9Sm1T/tblcY9dW2Jh2zUWuj"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Renda": "={{ $json.fields.RendaMensal }}",
+            "Telefone": "={{ $json.fields.Telefone }}",
+            "Email": "={{ $json.fields.Email }}",
+            "Name": "={{ $json.fields.Nome }}",
+            "AnaliseCredito": "={{ $json.fields.AnaliseCredito }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Renda",
+              "displayName": "Renda",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "AnaliseCredito",
+              "displayName": "AnaliseCredito",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "677720ec-8798-4c73-9c92-5aadedd714b9",
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2160,
+        240
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "p1dXJCd3h64BgfLP",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "f1b5f680-224d-4237-b855-e54490435e93",
+      "name": "OpenAI Chat Model4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        3280,
+        60
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X6RgTve43oC3qgKB",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"output\": {\n        \"type\": \"string\",\n        \"description\": \"Descrição dos imóveis encontrados ou justificativa de ausência.\"\n      },\n      \"indicacao_realizada\": {\n        \"type\": \"boolean\",\n        \"description\": \"Indica se a recomendação foi realizada ou não.\"\n      },\n      \"nome_cliente\": {\n        \"type\": \"string\",\n        \"description\": \"Nome do cliente.\"\n      }\n    },\n    \"required\": [\"output\", \"indicacao_realizada\", \"nome_cliente\"]\n  }\n}\n"
+      },
+      "id": "8fdd09ce-f34e-4b41-b4de-52d5e7848c01",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        3420,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "fac780e4-ba42-4373-b9d7-dfd36300b8f1",
+      "name": "OpenAI Chat Model5",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        420
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "X6RgTve43oC3qgKB",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um assistente especializado em gerar relatórios claros e dinâmicos para corretores de imóveis. Seu objetivo é organizar os dados fornecidos e criar uma mensagem profissional e amigável que facilite a compreensão das informações do cliente.\n\nCertifique-se de:\n\nDestacar as principais informações sobre o cliente (nome, telefone, email).\nListar os detalhes do interesse do cliente (tipo de imóvel, orçamento, renda, entrada).\nInformar claramente a situação de aprovação do cliente (análise de crédito e nível de interesse).\nAdicionar instruções claras para o corretor, como ações a serem tomadas e pontos de atenção específicos.\nTornar o texto dinâmico e visualmente fácil de entender, utilizando formatação clara e emojis onde necessário.",
+        "options": {
+          "systemMessage": "= Novo Cliente Aprovado! \n\nOlá, Nome do Corretor! Você tem um novo cliente aprovado! Aqui estão os detalhes para que você entre em contato com ele:\n\n👤 Nome do Cliente: {{ $json.fields.Nome }}\n📞 Telefone de Contato: {{ $json.fields.Telefone }}\n📧 Email: {{ $json.fields.Email }}\n\n💡 Informações de Interesse:\n🏠 Tipo de Imóvel: {{ $json.fields.TipoDeImoveInteresse }}\n💰 Orçamento: R$ {{ $json.fields.Orcamento }}\n📈 Renda Mensal: R$ {{ $json.fields.RendaMensal }}\n💵 Entrada: {{ $json.fields.Entrada }}%\n\n📊 Situação de Aprovação:\n✔️ Análise de Crédito: {{ $json.fields.AnaliseCredito }}\n🔥 Nível de Interesse: {{ $json.fields.NivelInteresse }}\n📍 Cidade: {{ $json.fields.Cidade }}\n\n📢 Instrução para o Corretor:\n\nEste cliente foi aprovado para a compra do imóvel.\nEntre em contato para discutir opções que atendam ao orçamento e ao tipo de imóvel desejado.\nConfirme os detalhes sobre o imóvel e verifique a disponibilidade de propriedades em {{ $json.fields.Cidade }}.\nBoa sorte no atendimento e sucesso na negociação! 🚀"
+        }
+      },
+      "id": "8085418f-7408-4d03-9e22-2cff69b91e85",
+      "name": "Agente Cria relatorio para Telegram",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        3200,
+        -720
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "-1001414581819",
+        "text": "=✳️ **Novo Cliente Aprovado!** ✳️\n\nOlá, [Nome do Corretor]! Você tem um novo cliente aprovado! Aqui estão os detalhes para que você entre em contato com ele:\n\n**Nome do Cliente:** {{ $('Cliente positivo para ligações').item.json.fields.Nome }}\n**Telefone:** {{ $('Cliente positivo para ligações').item.json.fields.Telefone }}\n**Email:** {{ $('Cliente positivo para ligações').item.json.fields.Email }}\n\n**Interesse no Imóvel:** {{ $('Cliente positivo para ligações').item.json.fields.TipoDeImoveInteresse }}  \n**Entrada:** {{ $('Cliente positivo para ligações').item.json.fields.Entrada }}\n**Renda Mensal:** R$ {{ $('Cliente positivo para ligações').item.json.fields.RendaMensal }}\n**Orçamento:** R$ {{ $('Cliente positivo para ligações').item.json.fields.Orcamento }}\n**Situação do Crédito:** {{ $('Cliente positivo para ligações').item.json.fields.AnaliseCredito }}\n\n⚠️ **Atenção:** O cliente está muito interessado em adquirir um imóvel, e já tem a **entrada definida**. Agende o quanto antes uma ligação para discutir as opções e fechar o negócio!\n\n**Ação necessária:** Entrar em contato com o cliente via telefone ou e-mail.\n\nBoa sorte! 🍀",
+        "additionalFields": {}
+      },
+      "id": "e135492d-75ca-4893-8434-59f8a9e8a1dd",
+      "name": "Envia Relatorio de cada Cliente para Corretor",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3720,
+        -560
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "d9D9LoHTXmKBNT38",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um assistente especializado em gerar relatórios claros e dinâmicos para corretores de imóveis. Seu objetivo é organizar os dados fornecidos e criar uma mensagem profissional e amigável que facilite a compreensão das informações do cliente.\n\nCertifique-se de:\n\nDestacar as principais informações sobre o cliente (nome, telefone, email).\nListar os detalhes do interesse do cliente (tipo de imóvel, orçamento, renda, entrada).\nInformar claramente a situação de aprovação do cliente (análise de crédito e nível de interesse).\nAdicionar instruções claras para o corretor, como ações a serem tomadas e pontos de atenção específicos.\nTornar o texto dinâmico e visualmente fácil de entender, utilizando formatação clara e emojis onde necessário.",
+        "options": {
+          "systemMessage": "=Este cliente precisa de um tempo\n\nOlá, Nome do Corretor! Você tem um novo cliente para analisar! Aqui estão os detalhes para que você entre em contato com ele:\n\n👤 Nome do Cliente: {{ $json.fields.Nome }}\n📞 Telefone de Contato: {{ $json.fields.Telefone }}\n📧 Email: {{ $json.fields.Email }}\n\n💡 Informações de Interesse:\n🏠 Tipo de Imóvel: {{ $json.fields.TipoDeImoveInteresse }}\n💰 Orçamento: R$ {{ $json.fields.Orcamento }}\n📈 Renda Mensal: R$ {{ $json.fields.RendaMensal }}\n💵 Entrada: {{ $json.fields.Entrada }}%\n\n📊 Situação de Aprovação:\n✔️ Análise de Crédito: {{ $json.fields.AnaliseCredito }}\n🔥 Nível de Interesse: {{ $json.fields.NivelInteresse }}\n📍 Cidade: {{ $json.fields.Cidade }}\n\n📢 Instrução para o Corretor:\n\nEste cliente NÃO foi  aprovado para entrar em contato agora.\nReserve um tempo para entrar em contato com ele em outro momento no futuro.\nConfirme os detalhes na base \nhttps://airtable.com/appt7DoPruRD9Sm1T/shrTyd93z6xvhW6nK\nBoa sorte no atendimento e sucesso na negociação! 🚀"
+        }
+      },
+      "id": "887dbb17-e8ff-4309-878c-f90ecb8eb50a",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2380,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "@sdsdsdsddasfsfg",
+        "text": "= 🏡 Relatório de Cliente\nNova Oportunidade de Negócio\n👤 **Informações do Cliente**\n**Nome:** {{ $('Cliente neutro para ligações').item.json.fields.Nome }} \\n- \n**Telefone de Contato:** 📞 {{ $('Cliente neutro para ligações').item.json.fields.Telefone }}\n**Email:** ✉️ {{ $('Cliente neutro para ligações').item.json.fields.Email }}\n 💡 **Detalhes do Interesse**\n**Tipo de Imóvel:** 🏠 {{ $('Cliente neutro para ligações').item.json.fields.TipoDeImoveInteresse }}\n**Orçamento:** 💰 R$ {{ $('Cliente neutro para ligações').item.json.fields.Orcamento }}\n**Renda Mensal:** 📈 R$  {{ $('Cliente neutro para ligações').item.json.fields.RendaMensal }}\n**Entrada:** 💵📊 {{ $('Cliente neutro para ligações').item.json.fields.Entrada }}\n**Análise de Crédito:** ✔️ {{ $('Cliente neutro para ligações').item.json.fields.AnaliseCredito }}\n**Nível de Interesse:** 🔥 {{ $('Cliente neutro para ligações').item.json.fields.NivelInteresse }}\n**Cidade:** 📍 {{ $('Cliente neutro para ligações').item.json.fields.Cidade }}\n\n**Instruções para o Corretor** \n\nEste cliente NÃO foi aprovado para contato imediato. \n**Reserve um tempo para entrar em contato com ele em outro momento no futuro.**\n\n\nCertifique-se de confirmar os detalhes na nossa base de dados: ✨ \n**Acesso à Base:** [Acesse aqui](https://airtable.com/appt7DoPruRD9Sm1T/shrTyd93z6xvhW6nK)\n**Boa sorte no atendimento e sucesso na negociação!** 🚀\"\n",
+        "additionalFields": {}
+      },
+      "id": "bf37214b-63f0-4dbe-991c-caceb9143660",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2760,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "8wg1Zam17HZxUzjd",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Q76hK57MDExkWM62yhyGi89x9qEeiEe1hUJgxXHQmuE",
+          "mode": "list",
+          "cachedResultName": "Clientes Negativos para contato",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Q76hK57MDExkWM62yhyGi89x9qEeiEe1hUJgxXHQmuE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Clientes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Q76hK57MDExkWM62yhyGi89x9qEeiEe1hUJgxXHQmuE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.fields.Email }}",
+            "ANalise de credito": "={{ $json.fields.AnaliseCredito }}",
+            "NIvel de interesse ": "={{ $json.fields.NivelInteresse }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ANalise de credito",
+              "displayName": "ANalise de credito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "NIvel de interesse ",
+              "displayName": "NIvel de interesse ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "37da52d2-ccb9-413d-a0b5-6941bf423522",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2260,
+        800
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2HuvdWBdKiivngFk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Inteligencia artificial que gera os dados para envia de mensagem de cliente aprovado para contato",
+        "height": 627.7917911285101,
+        "width": 1193.5755742235017,
+        "color": 4
+      },
+      "id": "82c3dbd6-c769-4e67-a6ed-c0a0cd98cdc2",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3080,
+        -900
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Gera Indicação de imoveis\n",
+        "height": 471.73374392009634,
+        "width": 827.181020293938,
+        "color": 4
+      },
+      "id": "c25f8b99-6a2a-40b8-b459-bf19e913c2c6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://6749e696868020296633075a.mockapi.io/api/imoveis/avenda/imoveis",
+        "options": {}
+      },
+      "id": "65e05ca2-2cb3-408b-b1e7-ed6d8aa7555c",
+      "name": "Solicitação GET pata Imoveis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3100,
+        -120
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Dados do cliente:\nNome {{ $('Cliente positivo para ligações').item.json.fields.Nome }}\nCidade {{ $('Cliente positivo para ligações').item.json.fields.Cidade }}\nTipo de Imovel de interesse  {{ $('Cliente positivo para ligações').item.json.fields.TipoDeImoveInteresse }}\n\nDados dos Imoveis:\nCidade {{ $json.Cidade }}\nTipo {{ $json.TipodoImovel }}\n\nVocê vai analisar e identificar relações entre os dados dos clientes e dos imoveis e retornar em um arquivo json com dois parametros apenas\noutput e indicacao_realizada",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Filtre imóveis que:\n\n- Estejam na mesma cidade do cliente {{ $('Cliente positivo para ligações').item.json.fields.Cidade }}.\n- Correspondam ao tipo de interesse {{ $('Cliente positivo para ligações').item.json.fields.TipoDeImoveInteresse }}.\n- Retorne sugestões válidas no formato de um array de objetos, com os campos:\n  - `\"output\"`: Descrição dos imóveis encontrados ou justificativa de ausência.\n  - `\"indicacao_realizada\"`: Definido como `true` se imóveis forem encontrados ou `false` caso contrário.\n\nSe não houver imóveis que atendam aos critérios, retorne apenas um objeto com `\"output\"` indicando que não foram encontrados imóveis e `\"indicacao_realizada\": false`.\n"
+        }
+      },
+      "id": "be438250-9996-4cd8-b92e-de5ba70821a7",
+      "name": "Analise dados e indica um imovel",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        3300,
+        -100
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "id": "70f72756-bc37-44f5-86a5-dc9fd14018ce",
+      "name": "Indicações",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3660,
+        -200
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "889e9d08-686c-4d1c-bfe2-560c0517a421",
+      "name": "Não houve indicações",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3660,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4d0acc3f-ae4b-4c1e-bd94-3198db9de2e8",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "allMatchingOutputs": true
+        }
+      },
+      "id": "619925f3-aa12-41cb-9542-5f09d8eca1d7",
+      "name": "Separa o fluxo para analises",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2860,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## GERA UM EMAIL DE INFORMAÇÃO PARA CLIENTE AGUARDAR A LIGAÇÃO DO CORRETOR",
+        "height": 451.94112525850295,
+        "width": 686.9833047743181,
+        "color": 4
+      },
+      "id": "1867e42f-9c94-402d-a490-83d9660f95a6",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        -580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8da96184-7096-4d65-abae-0b80c144f262",
+      "name": "Cliente positivo para ligações",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1900,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "35c2fad7-3b5d-4e18-8412-1e604ac6201f",
+      "name": "Cliente neutro para ligações",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        240
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6e1d2618-08b0-400e-9d2f-1bd1d990c617",
+      "name": "Cliente Negativo para ligações",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## GERA APENAS UM RELATÓRIO QUANDO NEGATIVO",
+        "height": 265.56063286183155,
+        "width": 485.7583483814517,
+        "color": 3
+      },
+      "id": "fdfd176d-dc75-416c-a199-9a85d393ed22",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "##  QUANTO NEUTRO CLIENTE FICA EM SEGUNDO PLANO PARA LIGAÇÕES E O CORRETOR É AVISADO DISSO ",
+        "height": 427.6670806119613,
+        "width": 909.1677015299033,
+        "color": 5
+      },
+      "id": "deb6b3bf-810e-40cd-8f07-b531faeba04b",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Start ou de forma cíclica ou evento externo",
+        "height": 844.9147453391267
+      },
+      "id": "1f257a91-7c57-4732-aed2-aa1e4fcb243b",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Obtem dados de uma base sobre a correto!",
+        "height": 278.2330900654477
+      },
+      "id": "03a8e18c-3280-45eb-9c95-d3024adc998f",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        140,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Por Get Obtem dados de clientes",
+        "height": 271.1353222475817
+      },
+      "id": "8b1bc040-2df4-4211-b74c-f140eeb0827b",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        122.62428907830935
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Grava ou atualiza os dados dos clientes ",
+        "height": 273.2521855284881
+      },
+      "id": "0cebb319-e311-4d96-bffe-119b550337d7",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        740,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "content": "limita quantidade de registro (economia opanai)",
+        "height": 272.1937538880348
+      },
+      "id": "0442c0a5-466e-42b4-a8db-711eaa7a3707",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Analisa os leads e os classifica",
+        "height": 430.49912170844345,
+        "width": 391.74340973888286
+      },
+      "id": "399749c1-68fc-4be0-b577-5a8cabc73ea3",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "inputText": "=O cliente {{$json.fields.Nome}} busca uma {{$json.fields.TipoDeImoveInteresse}} em {{$json.fields.Cidade}}, com {{$json.fields.Tamanho}} m², orçamento de {{$json.fields.Orcamento}}, e renda mensal de {{$json.fields.RendaMensal}}. O prazo de mudança é de {{$json.fields.PrazoMudanca}} meses, com {{$json.fields.Entrada}} de entrada. A análise de crédito foi {{$json.fields.AnaliseCredito}}, e o nível de interesse é {{$json.fields.NivelInteresse}}.",
+        "options": {
+          "systemPromptTemplate": "=Você é um assistente especializado em análise de dados de clientes. Sua tarefa é classificar clientes com base nas regras fornecidas. Aqui estão as regras de classificação:\n\nSe o Nível de Interesse for Alto e a Análise de Crédito for Aprovada, classifique o cliente como Positivo.\nSe a Entrada for inferior a 90% e a Análise de Crédito for Reprovada, classifique o cliente como Negativo.\nSe o Nível de Interesse for Médio ou Baixo, a Análise de Crédito for Aprovada, mas o Orçamento for inferior a R$50.000 e o Tipo de Imóvel de Interesse for Casa, classifique o cliente como Neutro.\nSe a Entrada for inferior a 50%, a Análise de Crédito for Aprovada, o Nível de Interesse for Baixo, e a Renda Mensal for inferior a R$3.000, classifique o cliente como Negativo.\nCom base nos dados fornecidos:\n\nTipo de Imóvel de Interesse: {{ $json.fields.TipoDeImoveInteresse }}\nPrazo para Mudança: {{ $json.fields.PrazoMudanca }} meses\nCidade: {{ $json.fields.Cidade }}\nTamanho do Imóvel: {{ $json.fields.Tamanho }} m²\nOrçamento: R$ {{ $json.fields.Orcamento }}\nRenda Mensal: R$ {{ $json.fields.RendaMensal }}\nEntrada: {{ $json.fields.Entrada }}%\nAnálise de Crédito: {{ $json.fields.AnaliseCredito }}\nNível de Interesse: {{ $json.fields.NivelInteresse }}\nClassifique o cliente como Positivo, Neutro, ou Negativo, justificando brevemente a sua escolha."
+        }
+      },
+      "id": "6eb51312-fffc-4364-b1ea-77edad8e5822",
+      "name": "Sentiment Analysis",
+      "type": "@n8n/n8n-nodes-langchain.sentimentAnalysis",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "promptType": "define",
+        "text": "=\"🎉 Parabéns, {{ $json.fields.Nome }}! Você foi selecionado para uma conversa exclusiva com nosso corretor.\n\n👋 Olá, {{ $json.fields.Nome }}!\n\nÉ uma grande alegria informar que você foi aprovado para a compra do seu imóvel! 🏡✨ Este é um passo emocionante rumo ao seu novo lar!\n\n📞 Em breve, um de nossos corretores imobiliários entrará em contato para conversar sobre as opções de imóveis que atendem às suas preferências. Temos certeza de que encontraremos o imóvel perfeito para você!\n\n⚡ Fique atento ao seu telefone, nossa equipe está ansiosa para ajudar você a realizar este sonho.\n\n📋 Detalhes do imóvel:\n\nTipo de imóvel: {{ $json.fields.TipoDeImoveInteresse }}\nOrçamento: R$ {{ $json.fields.Orcamento }}\n📩 Caso tenha dúvidas ou precise de mais informações, estamos aqui para ajudar! Entre em contato:\n📧 E-mail: {{ $('Dados da Imobiliária').item.json.Email }}\n📱 Telefone: {{ $('Dados da Imobiliária').item.json.Telefone }}\n\n✨ Atenciosamente,\n{{ $('Dados da Imobiliária').item.json.Name }}, {{ $('Dados da Imobiliária').item.json.Cargo }}\"",
+        "options": {
+          "systemMessage": "=Crie um e-mail marketing para um cliente aprovado que foi selecionado para receber uma ligação do nosso corretor imobiliário. O e-mail deve ser cordial, profissional e engajador, informando que o cliente foi aprovado e está prestes a ser contatado para discutir as opções de imóveis.\n\nContexto e detalhes a serem incluídos no e-mail:\n\nAssunto do e-mail: Parabéns! Você foi selecionado para uma conversa exclusiva com nosso corretor.\nSaudação personalizada: Utilize o nome do cliente.\nMensagem principal:\nO cliente foi aprovado para a compra do imóvel.\nEle será contatado por um corretor imobiliário para discutir as opções de imóveis.\nIncentive o cliente a ficar atento ao telefone para a ligação.\nChamada para ação:\nEncoraje o cliente a fazer perguntas ou buscar mais informações através de um canal de contato, caso tenha dúvidas.\n\nCrie apenas emails para a quantidade de entradas que temos do nó anterior"
+        }
+      },
+      "id": "2b676337-82ef-4413-8525-fd33e316a8d6",
+      "name": "Agente Cria Email Informativo positivo",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        2200,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "path": "bc4ee1ee-a697-4cd1-8839-1d96413a2f74",
+        "options": {}
+      },
+      "id": "d6fa4678-2743-425a-9355-dcf8f97670ee",
+      "name": "Gatilho por pagina na web",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        80
+      ],
+      "webhookId": "bc4ee1ee-a697-4cd1-8839-1d96413a2f74"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Cria Email Informativo positivo",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente Cria Email Informativo positivo",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Cria relatorio para Telegram",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente Cria relatorio para Telegram",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Dados da Imobiliária",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dados da Imobiliária": {
+      "main": [
+        [
+          {
+            "node": "API de Clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API de Clientes": {
+      "main": [
+        [
+          {
+            "node": "Grava ou atualizada dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grava ou atualizada dados": {
+      "main": [
+        [
+          {
+            "node": "Limitador de Itens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limitador de Itens": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envia Email para cada cliente": {
+      "main": [
+        [
+          {
+            "node": "Separa o fluxo para analises",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analise dados e indica um imovel",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analise dados e indica um imovel",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente Cria relatorio para Telegram": {
+      "main": [
+        [
+          {
+            "node": "Envia Relatorio de cada Cliente para Corretor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envia Relatorio de cada Cliente para Corretor": {
+      "main": [
+        [
+          {
+            "node": "Grava dados de contatos Aprovados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solicitação GET pata Imoveis": {
+      "main": [
+        [
+          {
+            "node": "Analise dados e indica um imovel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analise dados e indica um imovel": {
+      "main": [
+        [
+          {
+            "node": "Indicações",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Não houve indicações",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa o fluxo para analises": {
+      "main": [
+        [
+          {
+            "node": "Agente Cria relatorio para Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Solicitação GET pata Imoveis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente positivo para ligações": {
+      "main": [
+        [
+          {
+            "node": "Agente Cria Email Informativo positivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente neutro para ligações": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente Negativo para ligações": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "node": "Cliente positivo para ligações",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cliente neutro para ligações",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cliente Negativo para ligações",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente Cria Email Informativo positivo": {
+      "main": [
+        [
+          {
+            "node": "Envia Email para cada cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gatilho por pagina na web": {
+      "main": [
+        [
+          {
+            "node": "Dados da Imobiliária",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "8b5e310e-2242-4579-99a9-68aa0b88218c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5ead9ab04b81c3a806db353a9c355e54635846a8c47b7508d8cb4d3c49057d74"
+  },
+  "id": "hGLOvWE53TRgN4RF",
+  "tags": []
+}
